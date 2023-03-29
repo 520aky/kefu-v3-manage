@@ -22,7 +22,7 @@ const COLLAPSE = 'VEA-COLLAPSE'
 
 export const useApp = defineStore('app', {
   state: () => ({
-    title: 'Vue3 Element Admin',
+    title: '后台管理',
     authorization: getItem(TOKEN),
     sidebar: {
       collapse: getItem(COLLAPSE),
@@ -31,6 +31,11 @@ export const useApp = defineStore('app', {
   }),
   actions: {
     setCollapse(data) {
+      if (data > 0) {
+        data = true
+      } else {
+        data = false
+      }
       this.sidebar.collapse = data
       // 保存到localStorage
       setItem(COLLAPSE, data)

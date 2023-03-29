@@ -44,12 +44,7 @@
       hide: breadcrumbs.length <= 1,
     }"
   >
-    <el-breadcrumb-item
-      v-for="(item, index) in breadcrumbs"
-      :key="index"
-      :class="{ no_link: index === breadcrumbs.length - 1 }"
-      :to="index < breadcrumbs.length - 1 ? item.path : ''"
-    >
+    <el-breadcrumb-item v-for="(item, index) in breadcrumbs" :key="index" :class="{ no_link: index === breadcrumbs.length - 1 }" :to="index < breadcrumbs.length - 1 ? item.path : ''">
       {{ $t(item.meta.title) }}
     </el-breadcrumb-item>
   </el-breadcrumb>
@@ -58,14 +53,7 @@
 import { useApp } from '@/pinia/modules/app'
 import { useLayoutsettings } from '@/pinia/modules/layoutSettings'
 import { storeToRefs } from 'pinia'
-import {
-  defineComponent,
-  computed,
-  ref,
-  onBeforeMount,
-  watch,
-  getCurrentInstance,
-} from 'vue'
+import { defineComponent, computed, ref, onBeforeMount, watch, getCurrentInstance } from 'vue'
 import { useRouter } from 'vue-router'
 
 export default defineComponent({
@@ -76,19 +64,14 @@ export default defineComponent({
     const route = router.currentRoute // 这里不使用useRoute获取当前路由，否则下面watch监听路由的时候会有警告
     const breadcrumbs = ref([])
     const defaultSettings = useLayoutsettings()
-    const isHorizontalMenu = computed(
-      () => defaultSettings.menus.mode === 'horizontal'
-    )
+    const isHorizontalMenu = computed(() => defaultSettings.menus.mode === 'horizontal')
 
     const getBreadcrumbs = route => {
       const home = [{ path: '/', meta: { title: proxy.$t('menu.homepage') } }]
       if (route.name === 'home') {
         return home
       } else {
-        const matched = route.matched.filter(
-          item => !!item.meta && !!item.meta.title
-        )
-
+        const matched = route.matched.filter(item => !!item.meta && !!item.meta.title)
         return [...home, ...matched]
       }
     }

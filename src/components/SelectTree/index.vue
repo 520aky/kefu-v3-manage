@@ -26,33 +26,11 @@
  -->
 
 <template>
-  <el-popover
-    ref="popover"
-    placement="bottom-start"
-    trigger="click"
-    :popper-options="{ boundariesElement: 'viewport' }"
-    v-model:visible="visible"
-    :disabled="disabled"
-  >
-    <tree
-      ref="tree"
-      :value="is_multiple ? modelValue : modelValue ? [modelValue] : []"
-      :data="data || treeProps.data"
-      :multiple="is_multiple"
-      :tree-props="treeProps"
-      @tree-change="handleTreeChange"
-      @close="visible = false"
-    />
+  <el-popover ref="popover" placement="bottom-start" trigger="click" :popper-options="{ boundariesElement: 'viewport' }" v-model:visible="visible" :disabled="disabled">
+    <tree ref="tree" :value="is_multiple ? modelValue : modelValue ? [modelValue] : []" :data="data || treeProps.data" :multiple="is_multiple" :tree-props="treeProps" @tree-change="handleTreeChange" @close="visible = false" />
 
     <template #reference>
-      <custom-select
-        ref="select"
-        :value="modelValue"
-        :data="data || treeProps.data"
-        :multiple="is_multiple"
-        :tree-props="{ children, label, nodeKey }"
-        @select-change="handleSelectChange"
-      />
+      <custom-select ref="select" :value="modelValue" :data="data || treeProps.data" :multiple="is_multiple" :tree-props="{ children, label, nodeKey }" @select-change="handleSelectChange" />
     </template>
   </el-popover>
 </template>
@@ -107,14 +85,8 @@ export default defineComponent({
       select: ref(null),
       tree: ref(null),
       is_multiple: multiple || treeProps['show-checkbox'],
-      label:
-        treeProps.props && treeProps.props.label
-          ? treeProps.props.label
-          : 'label',
-      children:
-        treeProps.props && treeProps.props.children
-          ? treeProps.props.children
-          : 'children',
+      label: treeProps.props && treeProps.props.label ? treeProps.props.label : 'label',
+      children: treeProps.props && treeProps.props.children ? treeProps.props.children : 'children',
       nodeKey: treeProps['node-key'] || 'id',
       handleTreeChange(value) {
         emit('update:modelValue', value)
@@ -134,9 +106,7 @@ export default defineComponent({
     })
 
     onMounted(() => {
-      state.initPopoverStyle(
-        state.select.select.selectWrapper.offsetWidth + 'px'
-      )
+      state.initPopoverStyle(state.select.select.selectWrapper.offsetWidth + 'px')
     })
 
     return toRefs(state)

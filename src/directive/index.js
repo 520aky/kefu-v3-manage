@@ -41,10 +41,7 @@ export const Permission = app => {
     mounted: function(el, binding) {
       const { permissionList } = useAccount()
 
-      if (
-        binding.value &&
-        permissionList.every(item => item !== binding.value)
-      ) {
+      if (binding.value && permissionList.every(item => item !== binding.value)) {
         // 移除组件
         el.parentNode.removeChild(el)
       }

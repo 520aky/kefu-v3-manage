@@ -28,16 +28,12 @@
     <template #title>
       <item :icon="menu.icon" :title="menu.title" />
     </template>
-    <submenu
-      v-for="submenu in menu.children"
-      :key="submenu.url"
-      :is-nest="true"
-      :menu="submenu"
-    />
+    <submenu v-for="submenu in menu.children" :key="submenu.url" :is-nest="true" :menu="submenu" />
   </el-sub-menu>
 </template>
 <script>
-import { defineComponent } from 'vue'
+import menu from '@/i18n/locales/en/menu'
+import { defineComponent, onMounted } from 'vue'
 import Item from './Item.vue'
 export default defineComponent({
   name: 'Submenu',

@@ -33,11 +33,15 @@ import login from './modules/login'
 import lock from './modules/lock'
 import home from './modules/home'
 import test from './modules/test'
-
+import kefu from './modules/kefu'
+import card from './modules/card'
+import domain from './modules/domain'
+import user from './modules/user'
 /* 菜单栏的路由 */
 // 固定菜单
-export const fixedRoutes = [...home]
+export const fixedRoutes = [...home, ...kefu, ...card, ...domain, ...user]
 // 动态菜单
+// export const asyncRoutes = [...test]
 export const asyncRoutes = [...test]
 
 const router = createRouter({

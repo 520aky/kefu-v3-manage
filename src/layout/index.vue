@@ -42,10 +42,7 @@
         <topbar />
         <menus mode="horizontal" v-if="isMenusShow && isHorizontalMenu" />
         <tagsbar />
-        <breadcrumbs
-          v-if="isBreadcrumbsShow"
-          @on-breadcrumbs-change="handleBreadcrumbsChange"
-        />
+        <breadcrumbs v-if="isBreadcrumbsShow" @on-breadcrumbs-change="handleBreadcrumbsChange" />
       </div>
       <div class="main" :class="{ pt0: isBreadcrumbsShow && paddingFlag }">
         <Content />
@@ -62,7 +59,7 @@ import Tagsbar from './components/Tagsbar/index.vue'
 import Breadcrumbs from './components/Topbar/Breadcrumbs.vue'
 import Content from './components/Content/index.vue'
 import { useResizeHandler } from './hooks/useResizeHandler'
-import { storeToRefs } from 'pinia'
+// import { storeToRefs } from 'pinia'
 import { useLayoutsettings } from '@/pinia/modules/layoutSettings'
 
 export default defineComponent({
@@ -82,9 +79,7 @@ export default defineComponent({
     const isTopbarFixed = defaultSettings.topbar.isFixed
     const isMenusShow = defaultSettings.menus.isShow
     const isHorizontalMenu = defaultSettings.menus.mode === 'horizontal'
-    const isBreadcrumbsShow = computed(
-      () => isHorizontalMenu && defaultSettings.breadcrumbs.isShow
-    )
+    const isBreadcrumbsShow = computed(() => isHorizontalMenu && defaultSettings.breadcrumbs.isShow)
     const paddingFlag = ref(true)
     const handleBreadcrumbsChange = boo => {
       paddingFlag.value = boo

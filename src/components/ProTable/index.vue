@@ -33,122 +33,35 @@
   <div class="page-box">
     <!-- 搜索选项 -->
 
-    <el-form
-      v-if="!!search"
-      class="search"
-      :model="searchModel"
-      :inline="true"
-      label-position="right"
-      :label-width="search.labelWidth"
-      ref="searchForm"
-    >
-      <el-form-item
-        v-for="item in search.fields"
-        :key="item.name"
-        :label="$t(item.label)"
-        :prop="item.name"
-      >
+    <el-form v-if="!!search" class="search" :model="searchModel" :inline="true" label-position="right" :label-width="search.labelWidth" ref="searchForm">
+      <el-form-item v-for="item in search.fields" :key="item.name" :label="$t(item.label)" :prop="item.name">
         <slot v-if="item.type === 'custom'" :name="item.slot" />
-        <el-select
-          v-else-if="item.type === 'select'"
-          v-model="searchModel[item.name]"
-          :filterable="!!item.filterable"
-          :multiple="!!item.multiple"
-          clearable
-          :placeholder="$t(item.label)"
-          :style="{ width: search.inputWidth, ...item.style }"
-        >
-          <el-option
-            v-for="option of item.options"
-            :key="option.value"
-            :label="$t(option.name)"
-            :value="option.value"
-          ></el-option>
+        <el-select v-else-if="item.type === 'select'" v-model="searchModel[item.name]" :filterable="!!item.filterable" :multiple="!!item.multiple" clearable :placeholder="$t(item.label)" :style="{ width: search.inputWidth, ...item.style }">
+          <el-option v-for="option of item.options" :key="option.value" :label="$t(option.name)" :value="option.value"></el-option>
         </el-select>
-        <el-radio-group
-          v-model="searchModel[item.name]"
-          v-else-if="item.type === 'radio'"
-          :style="{ width: search.inputWidth, ...item.style }"
-        >
-          <el-radio
-            v-for="option of item.options"
-            :key="option.value"
-            :label="option.value"
-          >
+        <el-radio-group v-model="searchModel[item.name]" v-else-if="item.type === 'radio'" :style="{ width: search.inputWidth, ...item.style }">
+          <el-radio v-for="option of item.options" :key="option.value" :label="option.value">
             {{ $t(option.name) }}
           </el-radio>
         </el-radio-group>
-        <el-radio-group
-          v-model="searchModel[item.name]"
-          v-else-if="item.type === 'radio-button'"
-          :style="{ width: search.inputWidth, ...item.style }"
-        >
-          <el-radio-button
-            v-for="option of item.options"
-            :key="option.value"
-            :label="option.value"
-          >
+        <el-radio-group v-model="searchModel[item.name]" v-else-if="item.type === 'radio-button'" :style="{ width: search.inputWidth, ...item.style }">
+          <el-radio-button v-for="option of item.options" :key="option.value" :label="option.value">
             {{ $t(option.name) }}
           </el-radio-button>
         </el-radio-group>
-        <el-checkbox-group
-          v-model="searchModel[item.name]"
-          v-else-if="item.type === 'checkbox'"
-          :style="{ width: search.inputWidth, ...item.style }"
-        >
-          <el-checkbox
-            v-for="option of item.options"
-            :key="option.value"
-            :label="option.value"
-          >
+        <el-checkbox-group v-model="searchModel[item.name]" v-else-if="item.type === 'checkbox'" :style="{ width: search.inputWidth, ...item.style }">
+          <el-checkbox v-for="option of item.options" :key="option.value" :label="option.value">
             {{ $t(option.name) }}
           </el-checkbox>
         </el-checkbox-group>
-        <el-checkbox-group
-          v-model="searchModel[item.name]"
-          v-else-if="item.type === 'checkbox-button'"
-          :style="{ width: search.inputWidth, ...item.style }"
-        >
-          <el-checkbox-button
-            v-for="option of item.options"
-            :key="option.value"
-            :label="option.value"
-          >
+        <el-checkbox-group v-model="searchModel[item.name]" v-else-if="item.type === 'checkbox-button'" :style="{ width: search.inputWidth, ...item.style }">
+          <el-checkbox-button v-for="option of item.options" :key="option.value" :label="option.value">
             {{ $t(option.name) }}
           </el-checkbox-button>
         </el-checkbox-group>
-        <el-date-picker
-          v-else-if="item.type === 'date'"
-          v-model="searchModel[item.name]"
-          type="date"
-          format="YYYY-MM-DD"
-          clearable
-          @change="handleDateChange($event, item, 'YYYY-MM-DD')"
-          :placeholder="$t(item.label)"
-          :style="{ width: search.inputWidth, ...item.style }"
-        ></el-date-picker>
-        <el-date-picker
-          v-else-if="item.type === 'datetime'"
-          v-model="searchModel[item.name]"
-          type="datetime"
-          clearable
-          @change="handleDateChange($event, item, 'YYYY-MM-DD HH:mm:ss')"
-          format="YYYY-MM-DD HH:mm:ss"
-          :placeholder="$t(item.label)"
-          :style="{ width: search.inputWidth, ...item.style }"
-        ></el-date-picker>
-        <el-date-picker
-          v-else-if="item.type === 'daterange'"
-          v-model="searchModel[item.name]"
-          type="daterange"
-          format="YYYY-MM-DD"
-          range-separator="-"
-          :start-placeholder="$t('public.startdate')"
-          :end-placeholder="$t('public.enddate')"
-          clearable
-          @change="handleRangeChange($event, item, 'YYYY-MM-DD')"
-          :style="{ ...item.style }"
-        ></el-date-picker>
+        <el-date-picker v-else-if="item.type === 'date'" v-model="searchModel[item.name]" type="date" format="YYYY-MM-DD" clearable @change="handleDateChange($event, item, 'YYYY-MM-DD')" :placeholder="$t(item.label)" :style="{ width: search.inputWidth, ...item.style }"></el-date-picker>
+        <el-date-picker v-else-if="item.type === 'datetime'" v-model="searchModel[item.name]" type="datetime" clearable @change="handleDateChange($event, item, 'YYYY-MM-DD HH:mm:ss')" format="YYYY-MM-DD HH:mm:ss" :placeholder="$t(item.label)" :style="{ width: search.inputWidth, ...item.style }"></el-date-picker>
+        <el-date-picker v-else-if="item.type === 'daterange'" v-model="searchModel[item.name]" type="daterange" format="YYYY-MM-DD" range-separator="-" :start-placeholder="$t('public.startdate')" :end-placeholder="$t('public.enddate')" clearable @change="handleRangeChange($event, item, 'YYYY-MM-DD')" :style="{ ...item.style }"></el-date-picker>
         <el-date-picker
           v-else-if="item.type === 'datetimerange'"
           v-model="searchModel[item.name]"
@@ -161,32 +74,9 @@
           @change="handleRangeChange($event, item, 'YYYY-MM-DD HH:mm:ss')"
           :style="{ ...item.style }"
         ></el-date-picker>
-        <el-input-number
-          v-else-if="item.type === 'number'"
-          v-model="searchModel[item.name]"
-          :placeholder="$t(item.label)"
-          controls-position="right"
-          :min="item.min"
-          :max="item.max"
-          :style="{ width: search.inputWidth, ...item.style }"
-        />
-        <el-input
-          v-else-if="item.type === 'textarea'"
-          :maxlength="item.maxlength"
-          type="textarea"
-          clearable
-          v-model="searchModel[item.name]"
-          :placeholder="$t(item.label)"
-          :style="{ width: search.inputWidth, ...item.style }"
-        ></el-input>
-        <el-input
-          v-else
-          :maxlength="item.maxlength"
-          v-model="searchModel[item.name]"
-          clearable
-          :placeholder="$t(item.label)"
-          :style="{ width: search.inputWidth, ...item.style }"
-        ></el-input>
+        <el-input-number v-else-if="item.type === 'number'" v-model="searchModel[item.name]" :placeholder="$t(item.label)" controls-position="right" :min="item.min" :max="item.max" :style="{ width: search.inputWidth, ...item.style }" />
+        <el-input v-else-if="item.type === 'textarea'" :maxlength="item.maxlength" type="textarea" clearable v-model="searchModel[item.name]" :placeholder="$t(item.label)" :style="{ width: search.inputWidth, ...item.style }"></el-input>
+        <el-input v-else :maxlength="item.maxlength" v-model="searchModel[item.name]" clearable :placeholder="$t(item.label)" :style="{ width: search.inputWidth, ...item.style }"></el-input>
       </el-form-item>
       <el-form-item class="search-btn">
         <el-button type="primary" icon="Search" @click="handleSearch">
@@ -209,23 +99,8 @@
     </div>
     <!-- table表格栏 -->
     <div class="table">
-      <el-table
-        v-loading="loading"
-        :data="tableData"
-        :row-key="rowKey"
-        tooltip-effect="dark"
-        stripe
-        :border="border"
-        @selection-change="handleSelectionChange"
-      >
-        <el-table-column
-          v-for="item in columns"
-          :key="item.label"
-          :filter-method="item.filters && filterHandler"
-          :show-overflow-tooltip="!item.wrap"
-          v-bind="item"
-          :label="item.label ? $t(item.label) : ''"
-        >
+      <el-table v-loading="loading" :data="tableData" :row-key="rowKey" tooltip-effect="dark" stripe :border="border" @selection-change="handleSelectionChange">
+        <el-table-column v-for="item in columns" :key="item.label" :filter-method="item.filters && filterHandler" :show-overflow-tooltip="!item.wrap" v-bind="item" :label="item.label ? $t(item.label) : ''">
           <template #header="scope" v-if="!!item.labelSlot">
             <slot :name="item.labelSlot" v-bind="scope"></slot>
           </template>
@@ -236,18 +111,7 @@
       </el-table>
     </div>
     <!-- 分页 -->
-    <el-pagination
-      v-if="paginationConfig.show && total > 0"
-      class="pagination"
-      :style="paginationConfig.style"
-      @size-change="handleSizeChange"
-      v-model:currentPage="pageNum"
-      @current-change="handleCurrentChange"
-      :page-sizes="paginationConfig.pageSizes"
-      v-model:pageSize="pageSize"
-      :layout="paginationConfig.layout"
-      :total="total"
-    ></el-pagination>
+    <el-pagination v-if="paginationConfig.show && total > 0" class="pagination" :style="paginationConfig.style" @size-change="handleSizeChange" v-model:currentPage="pageNum" @current-change="handleCurrentChange" :page-sizes="paginationConfig.pageSizes" v-model:pageSize="pageSize" :layout="paginationConfig.layout" :total="total"></el-pagination>
   </div>
 </template>
 <script>
@@ -263,19 +127,11 @@ const formatDate = (date, format) => {
     'S+': date.getMilliseconds(),
   }
   if (/(y+)/i.test(format)) {
-    format = format.replace(
-      RegExp.$1,
-      (date.getFullYear() + '').substr(4 - RegExp.$1.length)
-    )
+    format = format.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length))
   }
   for (var k in obj) {
     if (new RegExp('(' + k + ')').test(format)) {
-      format = format.replace(
-        RegExp.$1,
-        RegExp.$1.length == 1
-          ? obj[k]
-          : ('00' + obj[k]).substr(('' + obj[k]).length)
-      )
+      format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? obj[k] : ('00' + obj[k]).substr(('' + obj[k]).length))
     }
   }
   return format
@@ -295,11 +151,7 @@ const getSearchModel = search => {
       if (item.defaultValue !== undefined) {
         searchModel[item.name] = item.defaultValue
         // 日期范围和时间范围真实变量默认值
-        if (
-          (item.type === 'daterange' || item.type === 'datetimerange') &&
-          !!item.trueNames &&
-          Array.isArray(item.defaultValue)
-        ) {
+        if ((item.type === 'daterange' || item.type === 'datetimerange') && !!item.trueNames && Array.isArray(item.defaultValue)) {
           item.defaultValue.forEach((val, index) => {
             searchModel[item.trueNames[index]] = val
           })
@@ -369,10 +221,7 @@ export default defineComponent({
           if (item.transform) {
             searchModel[item.name] = item.transform(searchModel[item.name])
           }
-          if (
-            (item.type === 'daterange' || item.type === 'datetimerange') &&
-            !!item.trueNames
-          ) {
+          if ((item.type === 'daterange' || item.type === 'datetimerange') && !!item.trueNames) {
             delete searchModel[item.name]
           }
         })

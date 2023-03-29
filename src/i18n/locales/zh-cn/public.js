@@ -19,4 +19,10 @@ export default {
   enddate: '结束日期',
   starttime: '开始时间',
   endtime: '结束时间',
+  nonactive: '未激活',
+  active: '已激活',
+  index: '序号',
+  closed: '关闭',
+  opened: '开启',
+  invalid: '失效',
 }

@@ -22,45 +22,19 @@
 
 <template>
   <div class="tags-container" :class="{ hide: !isTagsbarShow }">
-    <el-scrollbar
-      ref="scrollContainer"
-      :vertical="false"
-      class="scroll-container"
-      @wheel.prevent="onScroll"
-    >
-      <router-link
-        v-for="(tag, i) in tagList"
-        :key="tag.fullPath"
-        :to="tag"
-        :ref="el => setItemRef(i, el)"
-        custom
-        v-slot="{ navigate, isExactActive }"
-      >
-        <div
-          class="tags-item"
-          :class="isExactActive ? 'active' : ''"
-          @click="navigate"
-          @click.middle="closeTag(tag)"
-          @contextmenu.prevent="openMenu(tag, $event)"
-        >
+    <el-scrollbar ref="scrollContainer" :vertical="false" class="scroll-container" @wheel.prevent="onScroll">
+      <router-link v-for="(tag, i) in tagList" :key="tag.fullPath" :to="tag" :ref="el => setItemRef(i, el)" custom v-slot="{ navigate, isExactActive }">
+        <div class="tags-item" :class="isExactActive ? 'active' : ''" @click="navigate" @click.middle="closeTag(tag)" @contextmenu.prevent="openMenu(tag, $event)">
           <span class="title">{{ $t(tag.title) }}</span>
 
-          <el-icon
-            v-if="!isAffix(tag)"
-            class="el-icon-close"
-            @click.prevent.stop="closeTag(tag)"
-          >
+          <el-icon v-if="!isAffix(tag)" class="el-icon-close" @click.prevent.stop="closeTag(tag)">
             <Close />
           </el-icon>
         </div>
       </router-link>
     </el-scrollbar>
   </div>
-  <ul
-    v-show="visible"
-    :style="{ left: left + 'px', top: top + 'px' }"
-    class="contextmenu"
-  >
+  <ul v-show="visible" :style="{ left: left + 'px', top: top + 'px' }" class="contextmenu">
     <li @click="refreshSelectedTag(selectedTag)">{{ $t('tags.refresh') }}</li>
     <li v-if="!isAffix(selectedTag)" @click="closeTag(selectedTag)">
       {{ $t('tags.close') }}

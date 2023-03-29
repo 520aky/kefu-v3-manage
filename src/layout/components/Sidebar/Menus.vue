@@ -36,17 +36,7 @@
 
 <template>
   <el-scrollbar class="scroll">
-    <el-menu
-      class="menu"
-      :mode="mode"
-      :collapse="collapse"
-      :uniqueOpened="true"
-      :router="true"
-      :default-active="activePath"
-      :background-color="variables.menuBg"
-      :text-color="variables.menuTextColor"
-      :active-text-color="variables.menuActiveTextColor"
-    >
+    <el-menu class="menu" :mode="mode" :collapse="collapse" :uniqueOpened="true" :router="true" :default-active="activePath" :background-color="variables.menuBg" :text-color="variables.menuTextColor" :active-text-color="variables.menuActiveTextColor">
       <submenu v-for="menu in menus" :key="menu.url" :menu="menu" />
     </el-menu>
   </el-scrollbar>
@@ -76,7 +66,6 @@ export default defineComponent({
   setup() {
     const route = useRoute()
     const { menus } = storeToRefs(useMenus())
-
     return {
       menus,
       activePath: computed(() => route.path),

@@ -55,12 +55,7 @@
     <el-dialog v-model="dialogTableVisible" width="80%" append-to-body>
       <template #title>
         <span style="padding-right: 10px;">错误日志</span>
-        <el-button
-          size="mini"
-          type="primary"
-          icon="el-icon-delete"
-          @click="clearAll"
-        >
+        <el-button size="mini" type="primary" icon="el-icon-delete" @click="clearAll">
           Clear All
         </el-button>
       </template>

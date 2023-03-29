@@ -47,11 +47,7 @@
 <template>
   <div class="header" :class="{ 'no-border': isHorizontalMenu }">
     <div class="navigation">
-      <logo
-        v-if="isShowLogo"
-        class="mobile"
-        :class="{ 'show-title': isHorizontalMenu }"
-      />
+      <logo v-if="isShowLogo" class="mobile" :class="{ 'show-title': isHorizontalMenu }" />
       <hamburger v-if="isShowHamburger" />
       <breadcrumbs v-if="isShowBreadcrumbs" />
     </div>
@@ -88,19 +84,13 @@ export default defineComponent({
 
     const { device } = storeToRefs(useApp())
 
-    const isHorizontalMenu = computed(
-      () => defaultSettings.menus.mode === 'horizontal'
-    )
+    const isHorizontalMenu = computed(() => defaultSettings.menus.mode === 'horizontal')
 
-    const isShowLogo = computed(
-      () => isHorizontalMenu.value || device.value === 'mobile'
-    )
+    const isShowLogo = computed(() => isHorizontalMenu.value || device.value === 'mobile')
 
     const isShowHamburger = computed(() => !isHorizontalMenu.value)
 
-    const isShowBreadcrumbs = computed(
-      () => defaultSettings.breadcrumbs.isShow && !isHorizontalMenu.value
-    )
+    const isShowBreadcrumbs = computed(() => defaultSettings.breadcrumbs.isShow && !isHorizontalMenu.value)
 
     return {
       device,

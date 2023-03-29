@@ -33,7 +33,7 @@ export default env => {
   // console.log(111, env);
 
   return defineConfig({
-    // base: '/vue3-element-admin-site/',
+    base: './',
     plugins: [
       vue(),
       viteMockServe({
@@ -69,7 +69,7 @@ export default env => {
     },
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, 'src'),
+        '@': path.resolve(__dirname, 'src')
       },
     },
     server: {
@@ -77,7 +77,7 @@ export default env => {
       open: true,
       proxy: {
         '/api': {
-          target: 'http://dev.api.xxx.com', // 后端接口的域名
+          target: 'http://121.41.104.30:8088', // 后端接口的域名
           changeOrigin: true,
           rewrite: path => path.replace(/^\/api/, ''),
         },

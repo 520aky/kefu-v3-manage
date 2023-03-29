@@ -13,4 +13,13 @@ export default {
   nestPage1: 'Page1',
   nestPage2: 'Page2',
   'test-error-log': '测试错误日志',
+  kefu: '客服管理',
+  kefuList: '客服列表',
+  card: '卡密管理',
+  cardList: '卡密列表',
+  domain: '域名管理',
+  domainList: '域名列表',
+  user: '用户管理',
+  userList: '用户列表',
+  login: '登陆',
 }

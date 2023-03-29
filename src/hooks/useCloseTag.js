@@ -56,9 +56,7 @@ export default () => {
       fullPath ? router.push(fullPath) : router.back()
       reload &&
         setTimeout(() => {
-          instance.appContext.config.globalProperties.$tagsbar.refreshSelectedTag(
-            route
-          )
+          instance.appContext.config.globalProperties.$tagsbar.refreshSelectedTag(route)
         }, 500)
 
       f5 && setTimeout(() => window.location.reload(), 500)

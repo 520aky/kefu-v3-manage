@@ -44,7 +44,6 @@ export default defineComponent({
   props: ['title', 'icon'],
   setup({ icon }) {
     const isCustomSvg = computed(() => icon && icon.startsWith('icon-'))
-
     return {
       isCustomSvg,
     }

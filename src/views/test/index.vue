@@ -1,12 +1,5 @@
 <template>
-  <pro-table
-    ref="table"
-    :title="$t('test/list.title')"
-    :request="getList"
-    :columns="columns"
-    :search="searchConfig"
-    @selectionChange="handleSelectionChange"
-  >
+  <pro-table ref="table" :title="$t('test/list.title')" :request="getList" :columns="columns" :search="searchConfig" @selectionChange="handleSelectionChange">
     <!-- 工具栏 -->
     <template #toolbar>
       <el-button type="primary" icon="Delete" @click="batchDelete">
@@ -25,11 +18,7 @@
       </el-tag>
     </template>
     <template #operate="scope">
-      <el-button
-        size="small"
-        type="primary"
-        @click="$router.push(`/test/edit/${scope.row.id}`)"
-      >
+      <el-button size="small" type="primary" @click="$router.push(`/test/edit/${scope.row.id}`)">
         {{ $t('public.edit') }}
       </el-button>
       <el-button size="small" type="danger">

@@ -17,5 +17,8 @@ export default [
     path: '/login',
     name: 'login',
     component: Login,
+    meta: {
+      title: 'menu.login',
+    },
   },
 ]

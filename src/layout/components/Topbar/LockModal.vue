@@ -55,27 +55,11 @@
   <el-dropdown-item @click="dialogVisible = true">
     {{ $t('topbar.lock-title') }}
   </el-dropdown-item>
-  <el-dialog
-    :title="$t('topbar.lock-title')"
-    v-model="dialogVisible"
-    width="640px"
-    custom-class="lock-modal"
-    append-to-body
-  >
+  <el-dialog :title="$t('topbar.lock-title')" v-model="dialogVisible" width="640px" custom-class="lock-modal" append-to-body>
     <Avatar />
-    <el-form
-      :model="lockModel"
-      :rules="lockRules"
-      ref="lockForm"
-      label-width="90px"
-    >
+    <el-form :model="lockModel" :rules="lockRules" ref="lockForm" label-width="90px">
       <el-form-item :label="$t('topbar.lock-password')" prop="password">
-        <el-input
-          type="password"
-          v-model.trim="lockModel.password"
-          autocomplete="off"
-          @keyup.enter="submitForm"
-        ></el-input>
+        <el-input type="password" v-model.trim="lockModel.password" autocomplete="off" @keyup.enter="submitForm"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button class="submit-btn" type="primary" @click="submitForm">
@@ -105,9 +89,7 @@ export default defineComponent({
       password: '',
     })
     const lockRules = reactive({
-      password: [
-        { required: true, message: proxy.$t('topbar.lock-rules-password') },
-      ],
+      password: [{ required: true, message: proxy.$t('topbar.lock-rules-password') }],
     })
     const submitForm = () => {
       lockForm.value.validate(valid => {

@@ -70,9 +70,7 @@ export const useContextMenu = tagList => {
     closeTag(tag) {
       if (isAffix(tag)) return
 
-      const closedTagIndex = tagList.value.findIndex(
-        item => item.fullPath === tag.fullPath
-      )
+      const closedTagIndex = tagList.value.findIndex(item => item.fullPath === tag.fullPath)
       tagsStore.delTag(tag)
       if (isActive(tag)) {
         toLastTag(closedTagIndex - 1)
@@ -89,21 +87,13 @@ export const useContextMenu = tagList => {
       state.closeSomeTags('right')
     },
     closeSomeTags(direction) {
-      const index = tagList.value.findIndex(
-        item => item.fullPath === state.selectedTag.fullPath
-      )
+      const index = tagList.value.findIndex(item => item.fullPath === state.selectedTag.fullPath)
 
-      if (
-        (direction === 'left' && index <= 0) ||
-        (direction === 'right' && index >= tagList.value.length - 1)
-      ) {
+      if ((direction === 'left' && index <= 0) || (direction === 'right' && index >= tagList.value.length - 1)) {
         return
       }
 
-      const needToClose =
-        direction === 'left'
-          ? tagList.value.slice(0, index)
-          : tagList.value.slice(index + 1)
+      const needToClose = direction === 'left' ? tagList.value.slice(0, index) : tagList.value.slice(index + 1)
       tagsStore.delSomeTags(needToClose)
       router.push(state.selectedTag)
     },

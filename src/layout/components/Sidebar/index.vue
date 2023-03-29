@@ -33,10 +33,7 @@
  -->
 
 <template>
-  <div
-    class="left"
-    :class="{ collapse: collapse, mobile: device === 'mobile' }"
-  >
+  <div class="left" :class="{ collapse: collapse, mobile: device === 'mobile' }">
     <logo />
     <menus :collapse="collapse" />
   </div>

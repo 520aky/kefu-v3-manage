@@ -102,8 +102,7 @@ export default defineComponent({
       var s = oDate.getSeconds()
       var ms = oDate.getMilliseconds()
 
-      rotate.h =
-        'rotate(' + (h + m / 60 + s / 3600 + ms / 3600000) * 30 + 'deg)'
+      rotate.h = 'rotate(' + (h + m / 60 + s / 3600 + ms / 3600000) * 30 + 'deg)'
       rotate.m = 'rotate(' + (m + s / 60 + ms / 60000) * 6 + 'deg)'
       rotate.s = 'rotate(' + Math.ceil(s + ms / 1000 + 2) * 6 + 'deg)'
     }

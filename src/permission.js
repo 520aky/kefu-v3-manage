@@ -36,7 +36,7 @@
 import { ElLoading } from 'element-plus'
 import router from '@/router'
 // import store from '@/store'
-import { TOKEN } from '@/store/modules/app' // TOKEN变量名
+import { TOKEN } from '@/pinia/modules/app' // TOKEN变量名
 import { nextTick } from 'vue'
 import { useApp } from './pinia/modules/app'
 import { useAccount } from './pinia/modules/account'
@@ -75,6 +75,32 @@ router.beforeEach(async to => {
       replace: true,
     }
   } else {
+    const { menus, generateMenus } = useMenus()
+    if (menus.length <= 0) {
+      try {
+        await generateMenus()
+        return to.fullPath
+      } catch (error) {
+        loadingInstance.close()
+        return false
+      }
+    }
+    if (to.name !== 'lock') {
+      const { authorization } = useApp()
+      if (!!authorization && !!authorization.screenCode) {
+        return {
+          name: 'lock',
+          query: {
+            redirect: to.path,
+          },
+          replace: true,
+        }
+      }
+    }
+  }
+
+  /**
+   *  else {
     const { userinfo, getUserinfo } = useAccount()
     // 获取用户角色信息，根据角色判断权限
     if (!userinfo) {
@@ -88,7 +114,6 @@ router.beforeEach(async to => {
 
       return to.fullPath
     }
-
     // 生成菜单（如果你的项目有动态菜单，在此处会添加动态路由）
     const { menus, generateMenus } = useMenus()
     if (menus.length <= 0) {
@@ -115,13 +140,16 @@ router.beforeEach(async to => {
       }
     }
   }
+   * 
+   */
 })
 
 router.afterEach(to => {
   loadingInstance.close()
   if (router.currentRoute.value.name === to.name) {
     nextTick(() => {
-      document.title = getPageTitle(!!to.meta && to.meta.truetitle)
+      // document.title = getPageTitle(!!to.meta && to.meta.truetitle)
+      document.title = getPageTitle(to.meta?.truetitle)
     })
   }
 })

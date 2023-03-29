@@ -55,16 +55,16 @@ export class AesEncryption {
     if (key) {
       this.key = parse(key)
     }
-    if (iv) {
-      this.iv = parse(iv)
-    }
+    // if (iv) {
+    //   this.iv = parse(iv)
+    // }
   }
 
   get getOptions() {
     return {
       mode: ECB,
       padding: pkcs7,
-      iv: this.iv,
+      // iv: this.iv,
     }
   }
 

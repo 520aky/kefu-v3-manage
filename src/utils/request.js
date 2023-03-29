@@ -35,9 +35,9 @@ import router from '@/router'
 import { useApp } from '@/pinia/modules/app'
 
 const service = axios.create({
-  baseURL: '/',
+  baseURL: 'http://121.41.52.20:8088',
   timeout: 10000,
-  withCredentials: true,
+  //withCredentials: true,  // 当这里设置为ture的时候 后端的Access-Control-Allow-Origin不能为*, 必须是相应地址
 })
 
 // 拦截请求
@@ -45,7 +45,7 @@ service.interceptors.request.use(
   config => {
     const { authorization } = useApp()
     if (authorization) {
-      config.headers.Authorization = `Bearer ${authorization.token}`
+      config.headers.Token = `${authorization.token}`
     }
     return config
   },

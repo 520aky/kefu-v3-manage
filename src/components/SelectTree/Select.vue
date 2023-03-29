@@ -58,39 +58,12 @@
  * @Donate: https://huzhushan.gitee.io/vue3-element-admin/donate/
  -->
 <template>
-  <el-select
-    ref="select"
-    class="select"
-    style="width:100%"
-    clearable
-    :multiple="multiple"
-    v-model="selectValue"
-    :value-key="treeProps.label"
-    @remove-tag="handleRemove"
-    @clear="handleClear"
-    popper-class="select-popover"
-    :popper-append-to-body="false"
-    collapse-tags
-    :placeholder="placeholder"
-  >
-    <el-option
-      v-for="(item, index) in selectOptions"
-      :key="index"
-      :label="item[treeProps.label]"
-      :value="item"
-    />
+  <el-select ref="select" class="select" style="width:100%" clearable :multiple="multiple" v-model="selectValue" :value-key="treeProps.label" @remove-tag="handleRemove" @clear="handleClear" popper-class="select-popover" :popper-append-to-body="false" collapse-tags :placeholder="placeholder">
+    <el-option v-for="(item, index) in selectOptions" :key="index" :label="item[treeProps.label]" :value="item" />
   </el-select>
 </template>
 <script>
-import {
-  defineComponent,
-  onBeforeMount,
-  reactive,
-  ref,
-  watch,
-  toRefs,
-  inject,
-} from 'vue'
+import { defineComponent, onBeforeMount, reactive, ref, watch, toRefs, inject } from 'vue'
 
 export default defineComponent({
   props: {
@@ -129,9 +102,7 @@ export default defineComponent({
         if (!values || state.selectOptions.length <= 0) {
           return
         }
-        state.selectValue = multiple
-          ? state.selectOptions.filter(item => values.includes(item[nodeKey]))
-          : state.selectOptions.find(item => values === item[nodeKey]) || {}
+        state.selectValue = multiple ? state.selectOptions.filter(item => values.includes(item[nodeKey])) : state.selectOptions.find(item => values === item[nodeKey]) || {}
       },
       updateSelectOptions(data) {
         state.selectOptions = state.flatTree(data)
@@ -150,12 +121,7 @@ export default defineComponent({
         return res
       },
       handleRemove() {
-        emit(
-          'select-change',
-          multiple
-            ? state.selectValue.map(item => item[nodeKey])
-            : state.selectValue[nodeKey]
-        )
+        emit('select-change', multiple ? state.selectValue.map(item => item[nodeKey]) : state.selectValue[nodeKey])
       },
       handleClear() {
         emit('select-change', multiple ? [] : '')

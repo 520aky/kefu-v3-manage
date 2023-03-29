@@ -26,12 +26,7 @@
  -->
 
 <template>
-  <el-icon
-    :size="20"
-    class="fold-btn"
-    :class="{ collapse: collapse }"
-    @click="handleToggleMenu"
-  >
+  <el-icon :size="20" class="fold-btn" :class="{ collapse: collapse }" @click="handleToggleMenu">
     <Fold />
   </el-icon>
 </template>

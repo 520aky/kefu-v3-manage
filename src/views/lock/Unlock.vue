@@ -56,22 +56,9 @@
     <Avatar class="userinfo-unlock" />
     <el-form :model="lockModel" :rules="lockRules" ref="lockForm">
       <el-form-item prop="password">
-        <el-input
-          type="password"
-          v-model.trim="lockModel.password"
-          autocomplete="off"
-          :placeholder="$t('topbar.lock-rules-password2')"
-          @keyup.enter="submitForm"
-          style="width:320px"
-        >
+        <el-input type="password" v-model.trim="lockModel.password" autocomplete="off" :placeholder="$t('topbar.lock-rules-password2')" @keyup.enter="submitForm" style="width:320px">
           <template #append>
-            <el-button
-              type="primary"
-              class="btn-unlock"
-              icon="Right"
-              :loading="loading"
-              @click="submitForm"
-            ></el-button>
+            <el-button type="primary" class="btn-unlock" icon="Right" :loading="loading" @click="submitForm"></el-button>
           </template>
         </el-input>
       </el-form-item>
@@ -130,8 +117,8 @@ export default defineComponent({
         // 尝试登录
         loading.value = true
         const { code } = await Login({
-          username: userinfo.value.name,
-          password: value,
+          user: userinfo.value.name,
+          pass: value,
         })
         loading.value = false
         if (+code === 200) {
@@ -157,9 +144,9 @@ export default defineComponent({
       if (authorization.value) {
         showModal.value = true
         // 尝试获取用户信息
-        if (!userinfo.value) {
-          getUserinfo()
-        }
+        // if (!userinfo.value) {
+        //   getUserinfo()
+        // }
       } else {
         ctx.$message(ctx.$t('topbar.lock-error'))
         reLogin()

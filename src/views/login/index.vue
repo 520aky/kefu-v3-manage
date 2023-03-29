@@ -13,33 +13,14 @@
   <div class="login">
     <el-form class="form" :model="model" :rules="rules" ref="loginForm">
       <h1 class="title">Vue3 Element Admin</h1>
-      <el-form-item prop="userName">
-        <el-input
-          class="text"
-          v-model="model.userName"
-          prefix-icon="User"
-          clearable
-          :placeholder="$t('login.username')"
-        />
+      <el-form-item prop="user">
+        <el-input class="text" v-model="model.user" prefix-icon="User" clearable :placeholder="$t('login.username')" />
       </el-form-item>
-      <el-form-item prop="password">
-        <el-input
-          class="text"
-          v-model="model.password"
-          prefix-icon="Lock"
-          show-password
-          clearable
-          :placeholder="$t('login.password')"
-        />
+      <el-form-item prop="pass">
+        <el-input class="text" v-model="model.pass" prefix-icon="Lock" show-password clearable :placeholder="$t('login.password')" />
       </el-form-item>
       <el-form-item>
-        <el-button
-          :loading="loading"
-          type="primary"
-          class="btn"
-          size="large"
-          @click="submit"
-        >
+        <el-button :loading="loading" type="primary" class="btn" size="large" @click="submit">
           {{ btnText }}
         </el-button>
       </el-form-item>
@@ -51,15 +32,7 @@
 </template>
 
 <script>
-import {
-  defineComponent,
-  getCurrentInstance,
-  reactive,
-  toRefs,
-  ref,
-  computed,
-  watch,
-} from 'vue'
+import { defineComponent, getCurrentInstance, reactive, toRefs, ref, computed, watch } from 'vue'
 import { Login } from '@/api/login'
 import { useRouter, useRoute } from 'vue-router'
 import ChangeLang from '@/layout/components/Topbar/ChangeLang.vue'
@@ -78,14 +51,14 @@ export default defineComponent({
       state.rules = getRules()
     })
     const getRules = () => ({
-      userName: [
+      user: [
         {
           required: true,
           message: ctx.$t('login.rules-username'),
           trigger: 'blur',
         },
       ],
-      password: [
+      pass: [
         {
           required: true,
           message: ctx.$t('login.rules-password'),
@@ -101,14 +74,12 @@ export default defineComponent({
     })
     const state = reactive({
       model: {
-        userName: 'admin',
-        password: '123456',
+        user: 'admin',
+        pass: 'admin888',
       },
       rules: getRules(),
       loading: false,
-      btnText: computed(() =>
-        state.loading ? ctx.$t('login.logining') : ctx.$t('login.login')
-      ),
+      btnText: computed(() => (state.loading ? ctx.$t('login.logining') : ctx.$t('login.login'))),
       loginForm: ref(null),
       submit: () => {
         if (state.loading) {
@@ -117,8 +88,8 @@ export default defineComponent({
         state.loginForm.validate(async valid => {
           if (valid) {
             state.loading = true
-            const { code, data, message } = await Login(state.model)
-            if (+code === 200) {
+            const { code, result, msg } = await Login(state.model)
+            if (+code === 0) {
               ctx.$message.success({
                 message: ctx.$t('login.loginsuccess'),
                 duration: 1000,
@@ -134,9 +105,9 @@ export default defineComponent({
               } else {
                 router.push('/')
               }
-              useApp().initToken(data)
+              useApp().initToken(result)
             } else {
-              ctx.$message.error(message)
+              ctx.$message.error(msg)
             }
             state.loading = false
           }
